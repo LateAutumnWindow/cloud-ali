@@ -38,6 +38,8 @@
 ## 4. 项目启动
 
 ```txt
+详细步骤查看 README 文件夹下( 初始化项目.docx )
+
 1. 先克隆下项目
 git clone https://github.com/LateAutumnWindow/cloud-ali.git
 

@@ -2,8 +2,10 @@ package com.yan.cloud.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 @Mapper
+@Repository
 public interface StorageMapper {
 
     Integer getGoodsUnitPrice(String commodityCode);

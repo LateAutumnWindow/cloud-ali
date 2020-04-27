@@ -3,7 +3,7 @@
 <mapper namespace="com.yan.cloud.dao.AccountMapper">
 
     <update id="deductMoney">
-        UPDATE account_01 acc
+        UPDATE account_0 acc
         SET acc.money = acc.money - #{money}
         WHERE
             acc.user_id = #{userId}

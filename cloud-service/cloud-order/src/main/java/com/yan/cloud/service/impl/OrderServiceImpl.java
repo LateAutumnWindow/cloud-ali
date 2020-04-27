@@ -8,6 +8,7 @@ import com.yan.cloud.api.AccountApi;
 import com.yan.cloud.dao.OrderMapper;
 import com.yan.cloud.pojo.Order;
 import com.yan.cloud.service.OrderService;
+import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,16 +27,27 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @GlobalTransactional
-    public CommonResult createOrder(String userId, String commodityCode, int orderCount) {
-        int i = 10 / orderCount;
+    public CommonResult createOrder(String userId, String commodityCode, int count) {
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println(RootContext.getXID() + " ==  ===========================================");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        int i = 10 / count;
         Snowflake snowflake = IdUtil.createSnowflake(1, 1);
         // 计算价格，扣除库存
-        CommonResult goodsPrice = storageServerApi.getGoodsPrice(commodityCode, orderCount);
+        CommonResult goodsPrice = storageServerApi.getGoodsPrice(commodityCode, count);
         Integer countMoney = (Integer) goodsPrice.getData();
         Order build = Order.builder()
                 .commodityCode(snowflake.nextIdStr())
                 .userId(userId)
-                .count(orderCount)
+                .count(count)
                 .money(countMoney)
                 .build();
         // 创建运单

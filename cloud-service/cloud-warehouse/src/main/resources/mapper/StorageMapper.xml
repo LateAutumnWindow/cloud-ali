@@ -5,12 +5,12 @@
     <select id="getGoodsUnitPrice" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT
             stor.unit_price
-        FROM storage_01 stor
+        FROM storage_0 stor
         WHERE stor.commodity_code = #{commodityCode}
     </select>
 
     <update id="dwindleNumbers">
-        UPDATE storage_01 st
+        UPDATE storage_0 st
         SET st.count = st.count - #{count}
         WHERE
             st.commodity_code = #{code}

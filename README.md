@@ -52,13 +52,13 @@ git clone https://github.com/LateAutumnWindow/cloud-ali.git
 3. Seata 的 Server 端安装
 详情见根目录 /README/初始化项目.md
 
-3. 修改各服务配置文件中的 Nacos 地址
-spring:
-  cloud:
-  	nacos:
-      discovery:
-        server-addr: xxx.xxx.xxx.xxx:8848 # 换成你自己的 Nacos IP
+4. 创建数据库
+详情见根目录 /README/初始化项目.md
 
+5. 测试： 1001--用户ID / E101--货物CODE / 0--购买数量
+localhost:1001/create/order/1001/E101/0
+//在service方法模拟了报错
+int i = 10 / orderCount;
 
 ```
 

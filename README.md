@@ -23,6 +23,9 @@
   2.3. 服务熔断限流采用 Sentinel
   2.4. 链路追踪采用 Sleuth
   2.5. 消息驱动采用 Spring_cloud_Stream
+  2.6. 分布式事务采用 Seata
+  2.7. 分库分表采用 ShardingSphere
+  2.8. 分布式锁采用 Redisson
 ```
 
 
@@ -40,12 +43,22 @@
 ```txt
 详细步骤查看 README 文件夹下( 初始化项目.docx )
 
-1. 先克隆下项目
+1. 先克隆下载项目
 git clone https://github.com/LateAutumnWindow/cloud-ali.git
 
-2. 配置，注册中心
-要先搭建好 Nacos 服务，修改配置文件
+2. Nacos 配置，注册中心搭建
+详情见根目录 /README/初始化项目.md
 
-。。。。。待补充
+3. Seata 的 Server 端安装
+详情见根目录 /README/初始化项目.md
+
+3. 修改各服务配置文件中的 Nacos 地址
+spring:
+  cloud:
+  	nacos:
+      discovery:
+        server-addr: xxx.xxx.xxx.xxx:8848 # 换成你自己的 Nacos IP
+
+
 ```
 

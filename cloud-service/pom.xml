@@ -20,19 +20,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-            <exclusions>
-                <exclusion>
-                    <artifactId>seata-all</artifactId>
-                    <groupId>io.seata</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <!-- 这里引入与服务端版本一样的seata -->
-        <dependency>
             <groupId>io.seata</groupId>
-            <artifactId>seata-all</artifactId>
+            <artifactId>seata-spring-boot-starter</artifactId>
             <version>${seata.version}</version>
         </dependency>
         <!-- google分页 -->

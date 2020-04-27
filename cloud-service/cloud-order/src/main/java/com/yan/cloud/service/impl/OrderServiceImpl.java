@@ -39,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
         System.out.println();
         System.out.println();
         System.out.println();
-        int i = 10 / count;
+
         Snowflake snowflake = IdUtil.createSnowflake(1, 1);
         // 计算价格，扣除库存
         CommonResult goodsPrice = storageServerApi.getGoodsPrice(commodityCode, count);
@@ -54,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
         int order = orderMapper.createOrder(build);
         // 账户扣钱
         accountApi.deductMoney(userId, countMoney);
+        int i = 10 / count;
         return new CommonResult<>(200, "订单创建成功", order);
     }
 }

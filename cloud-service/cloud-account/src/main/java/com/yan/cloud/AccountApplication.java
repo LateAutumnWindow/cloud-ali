@@ -10,7 +10,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 @EnableDiscoveryClient
-@MapperScan("com.yan.cloud.dao")
+@MapperScan(basePackages = {"com.yan.cloud.dao"})
 public class AccountApplication {
     public static void main(String[] args) {
         SpringApplication.run(AccountApplication.class, args);

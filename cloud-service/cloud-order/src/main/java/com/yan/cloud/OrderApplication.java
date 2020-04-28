@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication(exclude = DruidDataSourceAutoConfigure.class)
 @EnableDiscoveryClient
 @EnableFeignClients
-@MapperScan("com.yan.cloud.dao")
+@MapperScan(basePackages = {"com.yan.cloud.dao"})
 public class OrderApplication {
     public static void main(String[] args) {
         SpringApplication.run(OrderApplication.class, args);

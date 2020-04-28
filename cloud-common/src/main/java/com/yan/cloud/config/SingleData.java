@@ -2,7 +2,14 @@ package com.yan.cloud.config;
 
 
 import cn.hutool.core.thread.SemaphoreRunnable;
+import org.redisson.Redisson;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
+import org.redisson.config.TransportMode;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -10,6 +17,66 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicStampedReference;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+
+class redisson {
+    public static void main(String[] args) {
+
+            new Thread(() -> {
+                try {
+                    try {TimeUnit.SECONDS.sleep(6);} catch (InterruptedException e) {e.printStackTrace();}
+                    Config conf = new Config();
+                    SingleServerConfig serverConfig = conf.useSingleServer().setAddress("redis://192.168.1.180:6379");
+                    serverConfig.setPassword("123456");
+                    RedissonClient redissonClient = Redisson.create(conf);
+                    System.out.println(Thread.currentThread().getName() + "取A锁-----------");
+                    long l = System.currentTimeMillis();
+                    RLock a = redissonClient.getLock("A");
+                    long e = System.currentTimeMillis();
+                    System.out.println(e-l);
+                    System.out.println(Thread.currentThread().getName() + "取完A锁-----------");
+
+
+                    System.out.println(Thread.currentThread().getName() + "取B锁-----------");
+                    long s = System.currentTimeMillis();
+                    RLock b = redissonClient.getLock("B");
+                    long f = System.currentTimeMillis();
+                    System.out.println(f-s);
+                    System.out.println(Thread.currentThread().getName() + "取完B锁-----------");
+
+                    RLock multiLock = redissonClient.getMultiLock(a, b);
+                    fff();
+                    multiLock.unlock();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }, "A").start();
+
+
+
+        new Thread(() -> {
+            try {
+                Config conf = new Config();
+                SingleServerConfig serverConfig = conf.useSingleServer().setAddress("redis://192.168.1.180:6379");
+                serverConfig.setPassword("123456");
+                RedissonClient redissonClient = Redisson.create(conf);
+                RLock b = redissonClient.getLock("B");
+                RLock multiLock = redissonClient.getMultiLock(b);
+                multiLock.lock();
+                fff();
+                System.out.println(Thread.currentThread().getName() + "2S 准备放锁-----------");
+                try {TimeUnit.SECONDS.sleep(6);} catch (InterruptedException e) {e.printStackTrace();}
+                multiLock.unlock();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, "B").start();
+
+
+    }
+    static void fff() {
+        System.out.println(Thread.currentThread().getName() + "0000000000000000000000000000000000");
+    }
+}
 
 class Jm {
     public static void main(String[] args) throws BrokenBarrierException, InterruptedException {

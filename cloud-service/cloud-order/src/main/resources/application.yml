@@ -1,6 +1,41 @@
 spring:
   profiles:
     active: dev
+  shardingsphere:
+    datasource:
+      names: order-0,order-1
+#      order-0:
+#        driverClassName: org.gjt.mm.mysql.Driver
+#        url: jdbc:mysql://192.168.1.180:3306/order_0?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#        username: root
+#        password: 123456
+#      order-1:
+#        driverClassName: org.gjt.mm.mysql.Driver
+#        url: jdbc:mysql://192.168.1.180:3306/order_1?useUnicode=true&characterEncoding=utf-8&useSSL=false
+#        username: root
+#        password: 123456
+#    shardingRule:
+#      tables:
+#        order:
+#          actualDataNodes: ds${0..1}.order${0..1}
+#          databaseStrategy:
+#            inline:
+#              shardingColumn: user_id
+#              algorithmExpression: ds${user_id % 2}
+#          tableStrategy:
+#            inline:
+#              shardingColumn: order_id
+#              algorithmExpression: order${commodity_code % 2}
+#          keyGenerator:
+#            type: SNOWFLAKE
+#            column: commodity_code
+#      defaultDataSourceName: ds0
+#      defaultTableStrategy:
+#        none:
+#        defaultKeyGenerator:
+#          type: SNOWFLAKE
+#          column: commodity_code
+
 seata:
   enabled: true
   application-id: cloud-order-service
@@ -26,3 +61,4 @@ seata:
 ribbon:
   ReadTimeout: 5000
   ConnectTimeout: 5000
+

@@ -3,7 +3,7 @@
 <mapper namespace="com.yan.cloud.dao.OrderMapper">
 
     <insert id="createOrder" parameterType="com.yan.cloud.pojo.Order">
-      INSERT INTO `order_0` (
+      INSERT INTO `order` (
             `user_id`,
             `commodity_code`,
             `count`,

@@ -33,7 +33,9 @@
 ## 3. 阶段目标
 
 ```txt
-1. 本阶段先构建网关 Spring_Cloud_Gateway 并出好文档 ------ 未完成
+1. 本阶段先构建网关 Spring_Cloud_Gateway 并出好文档 ------ 完成
+2. 整和了Seata分布式事务  ------  完成
+3. 整和了MybatisPlus ------  完成
 ```
 
 

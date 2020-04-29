@@ -23,6 +23,3 @@ seata:
       namespace:
       userName: "nacos"
       password: "nacos"
-ribbon:
-  ReadTimeout: 5000
-  ConnectTimeout: 5000

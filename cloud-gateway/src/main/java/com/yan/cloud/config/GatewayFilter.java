@@ -1,4 +1,4 @@
-package com.yan.cloud.conf;
+package com.yan.cloud.config;
 
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;

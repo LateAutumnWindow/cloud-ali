@@ -38,6 +38,7 @@
         <mybatis-plus-boot-starter.version>3.2.0</mybatis-plus-boot-starter.version>
         <redisson.version>3.12.0</redisson.version>
         <sharding.jdbc.version>4.0.0</sharding.jdbc.version>
+        <easy.excel.version>2.1.6</easy.excel.version>
     </properties>
 
     <dependencyManagement>

@@ -12,4 +12,7 @@ spring:
           enabled: true # 开启从注册中心动态创建路由的功能，利用微服务名进行路由
     nacos:
       discovery:
-        server-addr: 192.168.1.180:8848 # Nacos 的地址
+        server-addr: 192.168.5.122:8848 # Nacos 的地址
+redisson:
+  address: "redis://192.168.5.122:6379"
+  password: 123456

@@ -1,15 +1,6 @@
 spring:
   profiles:
     active: dev
-  shardingsphere:
-    datasource:
-      names: storage0
-      storage0:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.jdbc.Driver
-        jdbc-url: jdbc:mysql://192.168.5.122:3306/storage_0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
-        username: root
-        password: 123456
 ribbon:
   ReadTimeout: 5000
   ConnectTimeout: 5000

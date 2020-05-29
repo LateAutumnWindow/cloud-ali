@@ -1,28 +1,6 @@
 spring:
   profiles:
     active: dev
-seata:
-  enabled: true
-  application-id: cloud-account-service
-  tx-service-group: my_test_tx_group
-  config:
-    type: nacos
-    file:
-      name: file.conf
-    nacos:
-      serverAddr: 192.168.5.122:8848
-      group: SEATA_GROUP
-      userName: "nacos"
-      password: "nacos"
-      namespace:
-  registry:
-    type: nacos
-    nacos:
-      application: seata-server
-      server-addr: 192.168.5.122:8848
-      namespace:
-      userName: "nacos"
-      password: "nacos"
 ribbon:
   ReadTimeout: 5000
   ConnectTimeout: 5000

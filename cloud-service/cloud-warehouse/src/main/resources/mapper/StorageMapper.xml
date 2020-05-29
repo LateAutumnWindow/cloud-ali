@@ -16,4 +16,11 @@
             st.commodity_code = #{code}
     </update>
 
+    <update id="upStorage">
+        UPDATE storage_0 st
+        SET st.count = #{count}
+        WHERE
+            st.commodity_code = #{code}
+    </update>
+
 </mapper>

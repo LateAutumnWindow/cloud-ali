@@ -9,8 +9,6 @@ import com.yan.cloud.dao.OrderMapper;
 import com.yan.cloud.pojo.Order;
 import com.yan.cloud.redisson.RedissonLockUtil;
 import com.yan.cloud.service.OrderService;
-import io.seata.core.context.RootContext;
-import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,20 +28,7 @@ public class OrderServiceImpl implements OrderService {
     private AccountApi accountApi;
 
     @Override
-    @GlobalTransactional
     public CommonResult createOrder(String userId, String commodityCode, int count) {
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println(RootContext.getXID() + " ==  ===========================================");
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println();
-
         Snowflake snowflake = IdUtil.createSnowflake(1, 1);
         // Redisson联锁同时锁住用户ID,和物品Code
         RLock multiLock = RedissonLockUtil.getMultiLock(userId, commodityCode);

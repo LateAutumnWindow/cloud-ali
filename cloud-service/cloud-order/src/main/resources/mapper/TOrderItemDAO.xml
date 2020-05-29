@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yan.cloud.dao.TOrderItemDAO">
+  <resultMap id="BaseResultMap" type="com.yan.cloud.pojo.TOrderItem">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_item_id" jdbcType="BIGINT" property="orderItemId" />
+    <result column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, order_item_id, order_id, user_id, `status`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_order_item
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_order_item
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.yan.cloud.pojo.TOrderItem" useGeneratedKeys="true">
+    insert into t_order_item (order_item_id, order_id, user_id,
+      `status`)
+    values (#{orderItemId,jdbcType=BIGINT}, #{orderId,jdbcType=BIGINT}, #{userId,jdbcType=INTEGER}, 
+      #{status,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.yan.cloud.pojo.TOrderItem" useGeneratedKeys="true">
+    insert into t_order_item
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderItemId != null">
+        order_item_id,
+      </if>
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderItemId != null">
+        #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yan.cloud.pojo.TOrderItem">
+    update t_order_item
+    <set>
+      <if test="orderItemId != null">
+        order_item_id = #{orderItemId,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null">
+        order_id = #{orderId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yan.cloud.pojo.TOrderItem">
+    update t_order_item
+    set order_item_id = #{orderItemId,jdbcType=BIGINT},
+      order_id = #{orderId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=INTEGER},
+      `status` = #{status,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

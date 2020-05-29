@@ -1,28 +1,50 @@
 spring:
   profiles:
     active: dev
-seata:
-  enabled: true
-  application-id: cloud-order-service
-  tx-service-group: my_test_tx_group
-  config:
-    type: nacos
-    file:
-      name: file.conf
-    nacos:
-      serverAddr: 192.168.5.122:8848
-      group: SEATA_GROUP
-      userName: "nacos"
-      password: "nacos"
-      namespace:
-  registry:
-    type: nacos
-    nacos:
-      application: seata-server
-      server-addr: 192.168.5.122:8848
-      namespace:
-      userName: "nacos"
-      password: "nacos"
+#  shardingsphere:
+#    datasource:
+#      names: ds0,ds1
+#      ds0:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        jdbc-url: jdbc:mysql://192.168.5.122:3306/ds0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+#        username: root
+#        password: 123456
+#      ds1:
+#        type: com.zaxxer.hikari.HikariDataSource
+#        driver-class-name: com.mysql.jdbc.Driver
+#        jdbc-url: jdbc:mysql://192.168.5.122:3306/ds1?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+#        username: root
+#        password: 123456
+#    sharding:
+#      default-database-strategy:
+#        inline:
+#          sharding-column: user_id
+#          algorithm-expression: ds$->{user_id % 2}
+#      binding-tables: t_order,t_order_item
+#      broadcast-tables: t_dict
+#      tables:
+#        t_order:
+#          actual-data-nodes: ds$->{0..1}.t_order_$->{0..1}
+#          table-strategy:
+#            inline:
+#              sharding-column: order_id
+#              algorithm-expression: t_order_$->{order_id % 2}
+#          key-generator:
+#            column: order_id
+#            type: SNOWFLAKE
+#            props:
+#              worker:
+#                id: 123
+#        t_order_item:
+#          actual-data-nodes: ds$->{0..1}.t_order_item$->{0..1}
+#          table-strategy:
+#            inline:
+#              sharding-column: order_id
+#              algorithm-expression: t_order_item_$->{order_id % 2}
+#          key-generator:
+#            column: order_item_id
+#            type: SNOWFLAKE
 ribbon:
   ReadTimeout: 5000
   ConnectTimeout: 5000

@@ -11,10 +11,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication(
         exclude = {
-                DruidDataSourceAutoConfigure.class,
                 MybatisPlusAutoConfiguration.class,
-                JtaAutoConfiguration.class
-        })
+                DruidDataSourceAutoConfigure.class
+        }
+)
 @EnableDiscoveryClient
 @EnableFeignClients
 @MapperScan(basePackages = {"com.yan.cloud.dao"})

@@ -43,9 +43,9 @@
 
 
 
-
-
-        <sharding-sphere.version>4.0.0-RC2</sharding-sphere.version>
+        <seata-tn.version>1.0.0</seata-tn.version>
+        <hikari-cp.version>2.4.11</hikari-cp.version>
+        <shardingsphere.version>4.0.0-RC2</shardingsphere.version>
     </properties>
 
     <dependencyManagement>

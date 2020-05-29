@@ -6,4 +6,5 @@ public interface StorageService {
 
     CommonResult getGoodsPrice(String commodityCode, Integer count);
 
+    int updateStorage(String code, Integer count);
 }

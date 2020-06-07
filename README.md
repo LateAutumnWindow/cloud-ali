@@ -37,6 +37,7 @@
 2. 整和了Seata分布式事务  ------  完成
 3. 整和了MybatisPlus ------  完成
 4. 整合了分布式锁Redisson ------  完成
+5. 整合了ShardingSphere ------  完成
 ```
 
 

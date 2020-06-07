@@ -25,6 +25,9 @@ public class GatawayRouterConfig {
         */
         return builder.routes()
                 .route("create-order",
-                        f -> f.path("/create/order/**").uri("lb://cloud-order-service")).build();
+                        f -> f.path("/create/order/**").uri("lb://cloud-order-service"))
+                .route("insert-order",
+                        f -> f.path("/insert/order/**").uri("lb://cloud-order-service"))
+                .build();
     }
 }

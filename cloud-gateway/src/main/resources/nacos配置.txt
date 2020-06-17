@@ -1,0 +1,5 @@
+redisson:
+  address: "redis://192.168.5.122:6379"
+  password: 123456
+# basics 基础服务登录token密钥，修改需要同时修改basics服务
+secretKey: a12@123dWE

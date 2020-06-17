@@ -8,17 +8,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-@SpringBootApplication(
-        exclude = {
-                MybatisPlusAutoConfiguration.class,
-                DruidDataSourceAutoConfigure.class
-        }
-)
 @EnableDiscoveryClient
 @EnableFeignClients
 @MapperScan(basePackages = {"com.yan.cloud.dao"})
-public class OrderApplication {
+@SpringBootApplication(exclude = {
+        MybatisPlusAutoConfiguration.class,
+        DruidDataSourceAutoConfigure.class
+})
+public class BasicsApplication {
     public static void main(String[] args) {
-        SpringApplication.run(OrderApplication.class, args);
+        SpringApplication.run(BasicsApplication.class, args);
     }
 }

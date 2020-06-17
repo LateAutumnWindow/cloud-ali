@@ -24,6 +24,10 @@ public class GatawayRouterConfig {
             也可以是这种格式 http://news.baidu.com
         */
         return builder.routes()
+                .route("hello",
+                        f -> f.path("/hello/**").uri("lb://cloud-basics-service"))
+                .route("login",
+                        f -> f.path("/login").uri("lb://cloud-basics-service"))
                 .route("create-order",
                         f -> f.path("/create/order/**").uri("lb://cloud-order-service"))
                 .route("insert-order",

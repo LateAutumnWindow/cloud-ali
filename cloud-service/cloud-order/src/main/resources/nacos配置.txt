@@ -1,4 +1,5 @@
-cloud-order-service-dev.yaml
+## cloud-order-service-dev.yaml
+
 spring:
   shardingsphere:
     datasource:
@@ -36,7 +37,7 @@ spring:
               worker:
                 id: 123
         t_order_item:
-          actual-data-nodes: ds$->{0..1}.t_order_item$->{0..1}
+          actual-data-nodes: ds$->{0..1}.t_order_item_$->{0..1}
           table-strategy:
             inline:
               sharding-column: order_id

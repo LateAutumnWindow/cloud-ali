@@ -131,6 +131,9 @@ docker run --name seata-server \
    执行 nacos-config.sh
    
    启动脚本 sh ./nacos-config.sh -h 192.168.1.180 -p 8848 -g SEATA_GROUP -u nacos -w nacos
+   
+   执行 exit 退出容器 重启 seata-server 容器，查看是否已经注册到 nacos,
+   如果没有注册到 nacos 删除容器从新弄一遍 seata-server
     
 ```
 

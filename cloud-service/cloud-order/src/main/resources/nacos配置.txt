@@ -1,19 +1,18 @@
 ## cloud-order-service-dev.yaml
-
 spring:
   shardingsphere:
     datasource:
       names: ds0,ds1
       ds0:
-        type: com.zaxxer.hikari.HikariDataSource
+        type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        jdbc-url: jdbc:mysql://192.168.5.122:3306/ds0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://192.168.40.199:3316/ds0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
         username: root
         password: 123456
       ds1:
-        type: com.zaxxer.hikari.HikariDataSource
+        type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
-        jdbc-url: jdbc:mysql://192.168.5.122:3306/ds1?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+        url: jdbc:mysql://192.168.40.199:3316/ds1?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
         username: root
         password: 123456
     sharding:
@@ -22,7 +21,7 @@ spring:
           sharding-column: user_id
           algorithm-expression: ds$->{user_id % 2}
       binding-tables: t_order,t_order_item
-      broadcast-tables: t_dict
+      broadcast-tables: t_dict,storage_0
       tables:
         t_order:
           actual-data-nodes: ds$->{0..1}.t_order_$->{0..1}
@@ -33,9 +32,6 @@ spring:
           key-generator:
             column: order_id
             type: SNOWFLAKE
-            props:
-              worker:
-                id: 123
         t_order_item:
           actual-data-nodes: ds$->{0..1}.t_order_item_$->{0..1}
           table-strategy:
@@ -45,9 +41,7 @@ spring:
           key-generator:
             column: order_item_id
             type: SNOWFLAKE
-mybatis:
-  mapperLocations: classpath:mapper/*.xml
-  typeAliasesPackage: com.yan.cloud.dao
+
 feign:
   hystrix:
     enabled: false
@@ -55,9 +49,16 @@ logging:
   level:
     io:
       seata: INFO
+
+# Redisson 配置 -------------------------------------------------------------
 redisson:
-  address: "redis://192.168.5.122:6379"
-  password: 123456
+  address: "redis://192.168.40.199:6369"
+  password:
+
+# MyBatis 配置 -------------------------------------------------------------
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.yan.cloud.dao
 mybatis-plus:
   #  datasource: dataSource
   mapper-locations: classpath:/mapper/*.xml
@@ -85,3 +86,24 @@ mybatis-plus:
     cache-enabled: false
   configuration-properties:
     dbType: mysql #设置全局属性用于控制数据库的类型
+# Seata 配置 -------------------------------------------------------------
+seata:
+  config:
+    type: nacos
+    nacos:
+      server-addr: 192.168.40.199
+      group: "SEATA_GROUP"
+      namespace: ""
+      username: "nacos"
+      password: "nacos"
+  enable-auto-data-source-proxy: false
+  tx-service-group: my_test_tx_group
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 192.168.40.199:8848
+      group: "SEATA_GROUP"
+      namespace: ""
+      username: "nacos"
+      password: "nacos"
+      application: seata-server

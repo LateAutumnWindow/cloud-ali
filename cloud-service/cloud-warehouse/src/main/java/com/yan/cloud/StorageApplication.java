@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(exclude = {DruidDataSourceAutoConfigure.class, MybatisPlusAutoConfiguration.class})
 @EnableDiscoveryClient
 @MapperScan("com.yan.cloud.dao")
-@EnableTransactionManagement
 public class StorageApplication {
     public static void main(String[] args) {
         SpringApplication.run(StorageApplication.class, args);

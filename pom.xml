@@ -41,6 +41,7 @@
         <easy.excel.version>2.1.6</easy.excel.version>
         <servlet.api.version>2.4</servlet.api.version>
 
+        <seata-tn.version>1.4.1</seata-tn.version>
         <shardingsphere.version>4.0.0</shardingsphere.version>
     </properties>
 

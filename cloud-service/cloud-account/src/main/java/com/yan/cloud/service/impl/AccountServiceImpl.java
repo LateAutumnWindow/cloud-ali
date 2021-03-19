@@ -3,6 +3,8 @@ package com.yan.cloud.service.impl;
 import com.yan.cloud.CommonResult;
 import com.yan.cloud.dao.AccountMapper;
 import com.yan.cloud.service.AccountService;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,10 @@ public class AccountServiceImpl implements AccountService {
     private AccountMapper accountMapper;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    @ShardingTransactionType(TransactionType.BASE)
+    @Transactional
+    @GlobalTransactional(timeoutMills = 300000, name = "create_order",rollbackFor = Exception.class )
     public CommonResult deductMoney(String userId, Integer money) {
-//        System.out.println(RootContext.getXID() + " ==  ===========================================");
+        System.out.println(RootContext.getXID() + " ==  ===========================================");
         accountMapper.deductMoney(userId, money);
         int i = 10 / Integer.parseInt(userId);
         return new CommonResult(200, "扣钱成功");

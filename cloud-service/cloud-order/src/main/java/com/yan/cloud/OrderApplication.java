@@ -18,7 +18,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 )
 @EnableDiscoveryClient
 @EnableFeignClients
-@EnableTransactionManagement
 @MapperScan(basePackages = {"com.yan.cloud.dao"})
 public class OrderApplication {
     public static void main(String[] args) {

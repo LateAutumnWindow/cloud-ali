@@ -12,3 +12,23 @@ spring:
 ribbon:
   ReadTimeout: 5000
   ConnectTimeout: 5000
+seata:
+  config:
+    type: nacos
+    nacos:
+      server-addr: 192.168.40.199
+      group: "SEATA_GROUP"
+      namespace: ""
+      username: "nacos"
+      password: "nacos"
+  enable-auto-data-source-proxy: false
+  tx-service-group: my_test_tx_group
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 192.168.40.199:8848
+      group: "SEATA_GROUP"
+      namespace: ""
+      username: "nacos"
+      password: "nacos"
+      application: seata-server

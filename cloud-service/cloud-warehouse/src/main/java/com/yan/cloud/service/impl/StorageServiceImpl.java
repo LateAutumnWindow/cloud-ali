@@ -4,6 +4,8 @@ import com.yan.cloud.CommonResult;
 import com.yan.cloud.dao.StorageMapper;
 import com.yan.cloud.service.StorageService;
 import com.yan.cloud.util.ExcelDemo;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.springframework.stereotype.Service;
@@ -19,8 +21,9 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @ShardingTransactionType(TransactionType.BASE)
+    @GlobalTransactional(timeoutMills = 300000, name = "create_order",rollbackFor = Exception.class )
     public CommonResult getGoodsPrice(String commodityCode, Integer count) {
+        System.out.println(RootContext.getXID() + " ==  ===========================================");
         Integer goodsPrice = storageMapper.getGoodsUnitPrice(commodityCode) * count;
         storageMapper.dwindleNumbers(commodityCode, count);
         int j = 10 / count;
@@ -29,7 +32,7 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @ShardingTransactionType(TransactionType.XA)
+    @ShardingTransactionType(TransactionType.BASE)
     public int updateStorage(String code, Integer count) {
         int i = storageMapper.upStorage(code, count);
         int j = 10 / count;

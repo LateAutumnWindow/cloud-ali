@@ -9,6 +9,8 @@ import com.yan.cloud.dao.OrderMapper;
 import com.yan.cloud.pojo.Order;
 import com.yan.cloud.redisson.RedissonLockUtil;
 import com.yan.cloud.service.OrderService;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
@@ -34,13 +36,12 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private AccountApi accountApi;
 
-    @Autowired
-    private SqlSessionTemplate sqlSessionTemplate;
-
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    @ShardingTransactionType(TransactionType.BASE)
+    @Transactional
+    @GlobalTransactional(timeoutMills = 300000, name = "create_order",rollbackFor = Exception.class )
     public CommonResult createOrder(String userId, String commodityCode, int count) {
+        System.out.println(RootContext.getXID() + " ==  ===========================================");
+
         Snowflake snowflake = IdUtil.createSnowflake(1, 1);
         // Redisson联锁同时锁住用户ID,和物品Code
         RLock multiLock = RedissonLockUtil.getMultiLock(userId, commodityCode);
@@ -60,9 +61,12 @@ public class OrderServiceImpl implements OrderService {
             orderMapper.createOrder(build);
             // 账户扣钱
             accountApi.deductMoney(userId, countMoney);
-            int i = 10 / count;
+            if (count > 999) {
+                int i = 10 / 0;
+            }
         } catch (Exception e) {
             log.info("创建订单失败", e);
+            throw new RuntimeException("创建订单失败");
         } finally {
             multiLock.unlock();
         }

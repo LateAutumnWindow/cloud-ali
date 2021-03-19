@@ -10,11 +10,17 @@ import com.yan.cloud.pojo.Order;
 import com.yan.cloud.redisson.RedissonLockUtil;
 import com.yan.cloud.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
+import org.apache.shardingsphere.transaction.core.TransactionType;
 import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
@@ -28,17 +34,20 @@ public class OrderServiceImpl implements OrderService {
     private AccountApi accountApi;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
+    @ShardingTransactionType(TransactionType.BASE)
     public CommonResult createOrder(String userId, String commodityCode, int count) {
         Snowflake snowflake = IdUtil.createSnowflake(1, 1);
         // Redisson联锁同时锁住用户ID,和物品Code
         RLock multiLock = RedissonLockUtil.getMultiLock(userId, commodityCode);
         try{
-            multiLock.lock(2, TimeUnit.SECONDS);
+            multiLock.lock(30, TimeUnit.SECONDS);
             // 计算价格，扣除库存
             CommonResult goodsPrice = storageServerApi.getGoodsPrice(commodityCode, count);
             Integer countMoney = (Integer) goodsPrice.getData();
             Order build = Order.builder()
-                    .commodityCode(snowflake.nextIdStr())
+                    .orderId(snowflake.nextIdStr())
+                    .commodityCode(commodityCode)
                     .userId(userId)
                     .count(count)
                     .money(countMoney)

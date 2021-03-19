@@ -14,5 +14,5 @@ spring:
       discovery:
         server-addr: 192.168.40.199:8848 # Nacos 的地址
 redisson:
-  address: "redis://192.168.5.122:6379"
-  password: 123456
+  address: "redis://192.168.40.199:6379"
+  password:

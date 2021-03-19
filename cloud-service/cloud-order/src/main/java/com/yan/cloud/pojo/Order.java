@@ -21,4 +21,6 @@ public class Order {
 
     private Integer money;
 
+    private String orderId;
+
 }

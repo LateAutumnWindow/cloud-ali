@@ -28,6 +28,8 @@ public class GatawayRouterConfig {
                         f -> f.path("/create/order/**").uri("lb://cloud-order-service"))
                 .route("insert-order",
                         f -> f.path("/insert/order/**").uri("lb://cloud-order-service"))
+                .route("dict",
+                        f -> f.path("/dict/**").uri("lb://cloud-order-service"))
                 .build();
     }
 }

@@ -3,14 +3,15 @@
 <mapper namespace="com.yan.cloud.dao.OrderMapper">
 
     <insert id="createOrder" parameterType="com.yan.cloud.pojo.Order">
-      INSERT INTO `order` (
+      INSERT INTO t_order (
             `user_id`,
             `commodity_code`,
             `count`,
-            `money`
+            `money`,
+            `order_id`
         )
         VALUES
-            ( #{userId}, #{commodityCode}, #{count}, #{money});
+            ( #{userId}, #{commodityCode}, #{count}, #{money}, #{orderId});
     </insert>
 
 </mapper>

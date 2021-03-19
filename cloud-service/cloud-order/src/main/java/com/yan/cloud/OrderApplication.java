@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.transaction.jta.JtaAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication(
         exclude = {
@@ -17,6 +18,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 )
 @EnableDiscoveryClient
 @EnableFeignClients
+@EnableTransactionManagement
 @MapperScan(basePackages = {"com.yan.cloud.dao"})
 public class OrderApplication {
     public static void main(String[] args) {

@@ -1,6 +1,14 @@
+server:
+  port: 2021
 spring:
   profiles:
     active: dev
+  application:
+    name: cloud-account-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.40.199:8848
 ribbon:
   ReadTimeout: 5000
   ConnectTimeout: 5000

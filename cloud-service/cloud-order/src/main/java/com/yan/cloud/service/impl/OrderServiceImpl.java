@@ -12,6 +12,7 @@ import com.yan.cloud.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shardingsphere.transaction.annotation.ShardingTransactionType;
 import org.apache.shardingsphere.transaction.core.TransactionType;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class OrderServiceImpl implements OrderService {
     @Resource
     private AccountApi accountApi;
 
+    @Autowired
+    private SqlSessionTemplate sqlSessionTemplate;
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     @ShardingTransactionType(TransactionType.BASE)
@@ -46,9 +50,9 @@ public class OrderServiceImpl implements OrderService {
             CommonResult goodsPrice = storageServerApi.getGoodsPrice(commodityCode, count);
             Integer countMoney = (Integer) goodsPrice.getData();
             Order build = Order.builder()
-                    .orderId(snowflake.nextIdStr())
+                    .orderId(snowflake.nextId())
                     .commodityCode(commodityCode)
-                    .userId(userId)
+                    .userId(Integer.parseInt(userId))
                     .count(count)
                     .money(countMoney)
                     .build();

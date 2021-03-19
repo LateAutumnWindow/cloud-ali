@@ -19,22 +19,6 @@
 
 
     <dependencies>
-        <!-- Seata -->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>-->
-<!--            <exclusions>-->
-<!--                <exclusion>-->
-<!--                    <artifactId>seata-all</artifactId>-->
-<!--                    <groupId>io.seata</groupId>-->
-<!--                </exclusion>-->
-<!--            </exclusions>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>io.seata</groupId>-->
-<!--            <artifactId>seata-spring-boot-starter</artifactId>-->
-<!--            <version>${seata.version}</version>-->
-<!--        </dependency>-->
         <!-- google分页 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -95,16 +79,6 @@
             <version>${project.version}</version>
         </dependency>
 
-
-
-
-
-
-
-
-
-
-
         <!-- ShardingSphere -->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
@@ -121,16 +95,6 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>${mybatis.spring.boot.version}</version>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>com.zaxxer</groupId>-->
-            <!--<artifactId>HikariCP-java7</artifactId>-->
-            <!--<version>${hikari-cp.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.shardingsphere</groupId>-->
-            <!--<artifactId>sharding-jdbc-spring-namespace</artifactId>-->
-            <!--<version>${shardingsphere.version}</version>-->
-        <!--</dependency>-->
         <!-- 使用XA事务时，需要引入此模块 -->
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
@@ -144,21 +108,6 @@
             <version>${shardingsphere.version}</version>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>io.seata</groupId>-->
-            <!--<artifactId>seata-rm-datasource</artifactId>-->
-            <!--<version>${seata-tn.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.seata</groupId>-->
-            <!--<artifactId>seata-tm</artifactId>-->
-            <!--<version>${seata-tn.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.seata</groupId>-->
-            <!--<artifactId>seata-codec-all</artifactId>-->
-            <!--<version>${seata-tn.version}</version>-->
-        <!--</dependency>-->
     </dependencies>
 
 </project>

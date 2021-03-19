@@ -13,7 +13,7 @@ public class Order {
 
     private Integer id;
 
-    private String userId;
+    private Integer userId;
 
     private String commodityCode;
 
@@ -21,6 +21,6 @@ public class Order {
 
     private Integer money;
 
-    private String orderId;
+    private Long orderId;
 
 }

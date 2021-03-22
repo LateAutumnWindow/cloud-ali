@@ -38,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    @GlobalTransactional(timeoutMills = 300000, name = "create_order",rollbackFor = Exception.class )
+    @ShardingTransactionType(TransactionType.BASE)
     public CommonResult createOrder(String userId, String commodityCode, int count) {
         System.out.println(RootContext.getXID() + " ==  ===========================================");
 

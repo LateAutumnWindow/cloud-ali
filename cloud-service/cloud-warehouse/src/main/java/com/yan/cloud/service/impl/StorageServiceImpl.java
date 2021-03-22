@@ -21,7 +21,6 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @GlobalTransactional(timeoutMills = 300000, name = "create_order",rollbackFor = Exception.class )
     public CommonResult getGoodsPrice(String commodityCode, Integer count) {
         System.out.println(RootContext.getXID() + " ==  ===========================================");
         Integer goodsPrice = storageMapper.getGoodsUnitPrice(commodityCode) * count;
@@ -32,7 +31,6 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @ShardingTransactionType(TransactionType.BASE)
     public int updateStorage(String code, Integer count) {
         int i = storageMapper.upStorage(code, count);
         int j = 10 / count;

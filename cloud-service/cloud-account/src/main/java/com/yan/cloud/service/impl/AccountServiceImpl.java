@@ -20,7 +20,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    @GlobalTransactional(timeoutMills = 300000, name = "create_order",rollbackFor = Exception.class )
     public CommonResult deductMoney(String userId, Integer money) {
         System.out.println(RootContext.getXID() + " ==  ===========================================");
         accountMapper.deductMoney(userId, money);

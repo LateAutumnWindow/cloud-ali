@@ -4,9 +4,15 @@
 
     <update id="deductMoney">
         UPDATE account_0 acc
-        SET acc.money = acc.money - #{money}
+        SET acc.money = #{money}
         WHERE
             acc.user_id = #{userId}
     </update>
 
+    <select id="getUserInfo" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select
+          acc.money
+        from account_0 acc
+        where acc.user_id = #{userId}
+    </select>
 </mapper>

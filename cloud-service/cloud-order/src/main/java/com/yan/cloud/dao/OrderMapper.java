@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OrderMapper {
     public int createOrder(Order order);
+    public Order getOrderInfo(Long orderId);
 }

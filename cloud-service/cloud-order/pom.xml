@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.yan.cloud</groupId>
-            <artifactId>cloud-warehouse-api</artifactId>
+            <artifactId>cloud-storage-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

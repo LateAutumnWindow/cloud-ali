@@ -3,7 +3,7 @@
 <mapper namespace="com.yan.cloud.dao.OrderMapper">
 
     <insert id="createOrder" parameterType="com.yan.cloud.pojo.Order">
-      INSERT INTO t_order (
+      INSERT INTO t_order_0 (
             `user_id`,
             `commodity_code`,
             `count`,
@@ -13,5 +13,17 @@
         VALUES
             ( #{userId}, #{commodityCode}, #{count}, #{money}, #{orderId});
     </insert>
+
+    <select id="getOrderInfo" resultType="com.yan.cloud.pojo.Order">
+        select
+          id,
+           `user_id`,
+            `commodity_code`,
+            `count`,
+            `money`,
+            `order_id`
+        from t_order_0 o
+        where o.order_id = #{orderId}
+    </select>
 
 </mapper>

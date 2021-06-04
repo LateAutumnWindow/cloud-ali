@@ -35,7 +35,6 @@
 #           key-generator:
 #             column: order_id
 #             type: SNOWFLAKE
-
 spring:
   datasource:
     username: root
@@ -58,7 +57,6 @@ spring:
     maxPoolPreparedStatementPerConnectionSize: 20
     useGlobalDataSourceStat: true
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500
-
 feign:
   hystrix:
     enabled: false
@@ -67,19 +65,20 @@ logging:
     io:
       seata: INFO
     com.alibaba.nacos.client.config.impl: WARN
-# Mybatis -------------------------------------------------
+
+# Redisson ----------------------------------------------------
+redisson:
+  address: "redis://192.168.40.199:6369"
+  password: 
+
+# Mybatis ----------------------------------------------------
 # mybatis:
 #   mapperLocations: classpath:mapper/*.xml
 #   typeAliasesPackage: com.yan.cloud.dao
 #   configuration:
 #     map-underscore-to-camel-case: true
 
-# Redison -------------------------------------------------    
-redisson:
-  address: "redis://192.168.40.199:6369"
-  password:
-
-# Mybatis-Plus -------------------------------------------------    
+# Mybatis-Plus ----------------------------------------------------
 mybatis-plus:
   #  datasource: dataSource
   mapper-locations: classpath:/mapper/*.xml
@@ -106,11 +105,12 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     cache-enabled: false
   configuration-properties:
-    dbType: mysql #设置全局属性用于控制数据库的类型
-# Seata -------------------------------------------------   
+    #设置全局属性用于控制数据库的类型
+    dbType: mysql
+# Seata 配置 ----------------------------------------------------
 seata:
   enabled: true
-  application-id: raw-account
+  application-id: raw-storage
   config:
     type: nacos
     nacos:
@@ -120,7 +120,7 @@ seata:
       username: "nacos"
       password: "nacos"
   enable-auto-data-source-proxy: true
-  tx-service-group: my_account_test_tx_group
+  tx-service-group: my_storage_test_tx_group
   registry:
     type: nacos
     nacos:

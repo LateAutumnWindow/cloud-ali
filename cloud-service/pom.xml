@@ -12,29 +12,12 @@
     <modules>
         <module>cloud-order</module>
         <module>cloud-account</module>
-        <module>cloud-warehouse</module>
+        <module>cloud-storage</module>
         <module>cloud-order2</module>
     </modules>
     <artifactId>cloud-service</artifactId>
 
-
     <dependencies>
-        <!-- Seata -->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-starter-alibaba-seata</artifactId>-->
-                <!--<exclusions>-->
-                    <!--<exclusion>-->
-                        <!--<artifactId>seata-all</artifactId>-->
-                        <!--<groupId>io.seata</groupId>-->
-                    <!--</exclusion>-->
-                <!--</exclusions>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.seata</groupId>-->
-            <!--<artifactId>seata-spring-boot-starter</artifactId>-->
-            <!--<version>${seata-tn.version}</version>-->
-        <!--</dependency>-->
         <!-- google分页 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -85,6 +68,11 @@
             <version>${druid.version}</version>
         </dependency>
         <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>${mybatis-plus-boot-starter.version}</version>
@@ -94,53 +82,82 @@
             <artifactId>cloud-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <!-- Seata -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>seata-all</artifactId>
+                    <groupId>io.seata</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
 
         <!-- ShardingSphere -->
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-jdbc-core</artifactId>
-            <version>${shardingsphere.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
-            <version>${shardingsphere.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>${mybatis.spring.boot.version}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shardingsphere</groupId>-->
+            <!--<artifactId>sharding-jdbc-core</artifactId>-->
+            <!--<version>${shardingsphere.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shardingsphere</groupId>-->
+            <!--<artifactId>sharding-jdbc-spring-boot-starter</artifactId>-->
+            <!--<version>${shardingsphere.version}</version>-->
+        <!--</dependency>-->
         <!-- 使用XA事务时，需要引入此模块 -->
         <!--<dependency>-->
             <!--<groupId>org.apache.shardingsphere</groupId>-->
             <!--<artifactId>sharding-transaction-xa-core</artifactId>-->
             <!--<version>${shardingsphere.version}</version>-->
         <!--</dependency>-->
+
         <!-- 使用BASE事务时，需要引入此模块 -->
-        <dependency>
-            <groupId>org.apache.shardingsphere</groupId>
-            <artifactId>sharding-transaction-base-seata-at</artifactId>
-            <version>${shardingsphere.version}</version>
-        </dependency>
-
-
-
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-rm-datasource</artifactId>
-            <version>${seata-tn.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-tm</artifactId>
-            <version>${seata-tn.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.seata</groupId>
-            <artifactId>seata-codec-all</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shardingsphere</groupId>-->
+            <!--<artifactId>sharding-transaction-base-seata-at</artifactId>-->
+            <!--<version>${shardingsphere.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.shardingsphere</groupId>-->
+            <!--<artifactId>sharding-transaction-base-seata-at</artifactId>-->
+            <!--<version>${shardingsphere.version}</version>-->
+            <!--<exclusions>-->
+                <!--<exclusion>-->
+                    <!--<groupId>io.seata</groupId>-->
+                    <!--<artifactId>seata-rm-datasource</artifactId>-->
+                <!--</exclusion>-->
+                <!--<exclusion>-->
+                    <!--<groupId>io.seata</groupId>-->
+                    <!--<artifactId>seata-tm</artifactId>-->
+                <!--</exclusion>-->
+            <!--</exclusions>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>io.seata</groupId>-->
+            <!--<artifactId>seata-rm-datasource</artifactId>-->
+            <!--<version>${seata.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>io.seata</groupId>-->
+            <!--<artifactId>seata-tm</artifactId>-->
+            <!--<version>${seata.version}</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>io.seata</groupId>-->
+            <!--<artifactId>seata-codec-all</artifactId>-->
+            <!--<version>1.0.0</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba.cloud</groupId>-->
+            <!--<artifactId>spring-cloud-alibaba-seata</artifactId>-->
+            <!--<version>2.2.0.RELEASE</version>-->
+        <!--</dependency>-->
     </dependencies>
 
 </project>

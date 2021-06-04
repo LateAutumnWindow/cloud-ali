@@ -12,7 +12,7 @@
     <modules>
         <module>cloud-account-api</module>
         <module>cloud-order-api</module>
-        <module>cloud-warehouse-api</module>
+        <module>cloud-storage-api</module>
     </modules>
     <artifactId>cloud-api</artifactId>
 

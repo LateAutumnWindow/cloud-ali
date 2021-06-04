@@ -1,10 +1,8 @@
 server:
-  port: 2001
+  port: 2011
 spring:
   profiles:
     active: dev
-  application:
-    name: cloud-order-service
   cloud:
     nacos:
       discovery:
@@ -12,4 +10,3 @@ spring:
 ribbon:
   ReadTimeout: 600000
   ConnectTimeout: 600000
-

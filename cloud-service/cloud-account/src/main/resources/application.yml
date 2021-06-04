@@ -10,5 +10,5 @@ spring:
       discovery:
         server-addr: 192.168.40.199:8848
 ribbon:
-  ReadTimeout: 5000
-  ConnectTimeout: 5000
+  ReadTimeout: 600000
+  ConnectTimeout: 600000

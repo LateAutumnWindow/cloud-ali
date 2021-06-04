@@ -8,4 +8,5 @@ public interface AccountMapper {
 
     int deductMoney(@Param("userId") String userId,@Param("money") Integer money);
 
+    Integer getUserInfo(@Param("userId") String userId);
 }

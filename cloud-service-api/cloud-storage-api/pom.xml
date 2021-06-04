@@ -9,8 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>cloud-order-api</artifactId>
+    <artifactId>cloud-storage-api</artifactId>
+    <dependencies>
 
-    <dependencies></dependencies>
-
+    </dependencies>
 </project>

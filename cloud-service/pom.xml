@@ -18,12 +18,6 @@
     <artifactId>cloud-service</artifactId>
 
     <dependencies>
-        <!-- google分页 -->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper</artifactId>
-            <version>${pagehelper.version}</version>
-        </dependency>
         <!-- Nacos配置中心依赖 -->
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -98,13 +92,13 @@
             <artifactId>seata-spring-boot-starter</artifactId>
             <version>${seata.version}</version>
         </dependency>
-
+        <!-- 授权鉴权 -->
+        <dependency>
+            <groupId>com.yan.cloud</groupId>
+            <artifactId>cloud-security</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
         <!-- ShardingSphere -->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.shardingsphere</groupId>-->
-            <!--<artifactId>sharding-jdbc-core</artifactId>-->
-            <!--<version>${shardingsphere.version}</version>-->
-        <!--</dependency>-->
         <!--<dependency>-->
             <!--<groupId>org.apache.shardingsphere</groupId>-->
             <!--<artifactId>sharding-jdbc-spring-boot-starter</artifactId>-->
@@ -116,47 +110,11 @@
             <!--<artifactId>sharding-transaction-xa-core</artifactId>-->
             <!--<version>${shardingsphere.version}</version>-->
         <!--</dependency>-->
-
         <!-- 使用BASE事务时，需要引入此模块 -->
         <!--<dependency>-->
             <!--<groupId>org.apache.shardingsphere</groupId>-->
             <!--<artifactId>sharding-transaction-base-seata-at</artifactId>-->
             <!--<version>${shardingsphere.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.shardingsphere</groupId>-->
-            <!--<artifactId>sharding-transaction-base-seata-at</artifactId>-->
-            <!--<version>${shardingsphere.version}</version>-->
-            <!--<exclusions>-->
-                <!--<exclusion>-->
-                    <!--<groupId>io.seata</groupId>-->
-                    <!--<artifactId>seata-rm-datasource</artifactId>-->
-                <!--</exclusion>-->
-                <!--<exclusion>-->
-                    <!--<groupId>io.seata</groupId>-->
-                    <!--<artifactId>seata-tm</artifactId>-->
-                <!--</exclusion>-->
-            <!--</exclusions>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.seata</groupId>-->
-            <!--<artifactId>seata-rm-datasource</artifactId>-->
-            <!--<version>${seata.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.seata</groupId>-->
-            <!--<artifactId>seata-tm</artifactId>-->
-            <!--<version>${seata.version}</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>io.seata</groupId>-->
-            <!--<artifactId>seata-codec-all</artifactId>-->
-            <!--<version>1.0.0</version>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-            <!--<groupId>com.alibaba.cloud</groupId>-->
-            <!--<artifactId>spring-cloud-alibaba-seata</artifactId>-->
-            <!--<version>2.2.0.RELEASE</version>-->
         <!--</dependency>-->
     </dependencies>
 

@@ -22,7 +22,7 @@ public class StorageServiceImpl implements StorageService {
         Storage goods = storageMapper.getGoodsUnitPrice(commodityCode);
         int price = goods.getUnitPrice() * count;
         storageMapper.dwindleNumbers(commodityCode, (goods.getCount() - count));
-        return new CommonResult<>(200, "计算成功", price);
+        return CommonResult.success("计算成功", price);
     }
 
     @Override

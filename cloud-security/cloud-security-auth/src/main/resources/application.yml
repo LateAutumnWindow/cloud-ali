@@ -1,0 +1,56 @@
+server:
+  port: 5501
+spring:
+  profiles:
+    active: dev
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.40.199:3316/auth?useUnicode=true&characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&autoReconnect=true&serverTimezone=UTC
+    username: root
+    password: 123456
+    # 用来初始化数据库的，如果不存在表就自动创建
+    initialization-mode: ALWAYS
+    schema: classpath:ddl.sql
+
+#  application:
+#    name: cloud-order-service
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 192.168.40.199:8848
+#ribbon:
+#  ReadTimeout: 600000
+#  ConnectTimeout: 600000
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+# 配置已在 Oauth2AuthorizationServerConfig 中配置
+#security:
+#  oauth2:
+#    authorization:
+#      # 允许使用 /oauth/check_token
+#      check-token-access: isAuthenticated()
+#    client:
+#      # 客户端注册的 回调地址 当客户端或应用 第一步获取授权码的时候会带一个回调地址
+#      # 因为你传递过来的回调地址授权服务器不知道是否合法，可能会在传输的中途被篡改，
+#      # 所以在授权服务器里面需要你注册一个回调地址，与你传递过来的进行对比，
+#      # 如果匹配才会携带授权码进行回调
+#      registered-redirect-uri: http://example.com
+#      # 客户端ID 和 密钥
+#      client-id: yanApp
+#      client-secret: yanApp123
+#      # 客户端授权范围
+#      scope: all
+#      # token 有效期
+#      access-token-validity-seconds: 6000
+#      # 刷新 token 的有效期
+#      refresh-token-validity-seconds: 6000
+#      # 允许的授权类型：授权码模式，密码模式
+#      grant-type: authorization_code, password
+#      # 可以访问资源的 ID
+#      resource-ids: res1
+#    # 集合类型可以多个，如果客户端可以访问的资源服务器ID不再他的范围就无法访问响应资源
+#    resource:
+#      id: res1

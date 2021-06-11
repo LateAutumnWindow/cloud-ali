@@ -9,4 +9,5 @@ public interface OrderService {
 
     CommonResult createOrder(String userId, String commodityCode, int orderCount);
 
+    public Order getOrderInfo(long id);
 }

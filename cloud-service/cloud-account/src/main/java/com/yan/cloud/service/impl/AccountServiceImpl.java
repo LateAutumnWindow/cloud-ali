@@ -19,6 +19,6 @@ public class AccountServiceImpl implements AccountService {
         System.out.println(RootContext.getXID() + " ==  ===========================================");
         Integer moneys = accountMapper.getUserInfo(userId);
         accountMapper.deductMoney(userId, (moneys - money));
-        return new CommonResult(200, "扣钱成功");
+        return CommonResult.success( "扣钱成功");
     }
 }

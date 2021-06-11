@@ -1,6 +1,5 @@
 package com.yan.cloud.config;
 
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
@@ -24,12 +23,8 @@ public class GatawayRouterConfig {
             也可以是这种格式 http://news.baidu.com
         */
         return builder.routes()
-                .route("create-order",
-                        f -> f.path("/create/order/**").uri("lb://cloud-order-service"))
-                .route("insert-order",
-                        f -> f.path("/insert/order/**").uri("lb://cloud-order-service"))
-                .route("dict",
-                        f -> f.path("/dict/**").uri("lb://cloud-order-service"))
+                .route("cloud-order",
+                        f -> f.path("/order/**").uri("lb://cloud-order-service"))
                 .build();
     }
 }

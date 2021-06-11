@@ -1,0 +1,31 @@
+server:
+  port: 5502
+spring:
+  profiles:
+    active: dev
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+security:
+  oauth2:
+    client:
+      # 客户端注册的 回调地址 当客户端或应用 第一步获取授权码的时候会带一个回调地址
+      # 因为你传递过来的回调地址授权服务器不知道是否合法，可能会在传输的中途被篡改，
+      # 所以在授权服务器里面需要你注册一个回调地址，与你传递过来的进行对比，
+      # 如果匹配才会携带授权码进行回调
+      registered-redirect-uri: http://example.com
+      # 客户端ID 和 密钥
+      client-id: yanApp
+      client-secret: yanApp123
+      # 客户端授权范围
+      scope: all
+      # token 有效期
+      access-token-validity-seconds: 6000
+      # 刷新 token 的有效期
+      refresh-token-validity-seconds: 6000
+      # 允许的授权类型：授权码模式，密码模式
+      grant-type: authorization_code, password
+      # 可以访问资源的 ID
+      resource-ids: res1

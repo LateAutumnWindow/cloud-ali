@@ -4,7 +4,9 @@ import com.yan.cloud.SnowflakeIdWorker;
 import com.yan.cloud.api.StorageServerApi;
 import com.yan.cloud.CommonResult;
 import com.yan.cloud.api.AccountApi;
+import com.yan.cloud.constant.MsgCode;
 import com.yan.cloud.dao.OrderMapper;
+import com.yan.cloud.exception.OrderExeption;
 import com.yan.cloud.pojo.Order;
 import com.yan.cloud.redisson.RedissonLockUtil;
 import com.yan.cloud.service.OrderService;
@@ -61,10 +63,15 @@ public class OrderServiceImpl implements OrderService {
             }
         } catch (Exception e) {
             log.info("创建订单失败", e);
-            throw new RuntimeException("创建订单失败");
+            throw new OrderExeption(MsgCode.ADD_ORDER,"创建订单失败");
         } finally {
             multiLock.unlock();
         }
-        return new CommonResult<>(200, "订单创建成功");
+        return CommonResult.success("订单创建成功");
+    }
+
+    @Override
+    public Order getOrderInfo(long id) {
+        return orderMapper.getOrderInfo(id);
     }
 }

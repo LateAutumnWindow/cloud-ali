@@ -1,10 +1,10 @@
 package com.yan.cloud.constant;
 
-import lombok.Data;
-
 public class MsgCode {
 
     public static final Integer SUCCESS = 200;
+    /* 未登录 */
+    public static final Integer NO_LOGIN = 201;
 
 
     // cloud-system: 1**** --------------------------------------------

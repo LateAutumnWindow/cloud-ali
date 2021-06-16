@@ -1,5 +1,6 @@
 package com.yan.cloud.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -32,18 +33,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(
-                User.withUsername("user")
-                        .password(passwordEncoder().encode("123"))
-                        .authorities("ROLE_USER")
-                        .build());
-        manager.createUser(
-                User.withUsername("admin")
-                        .password(passwordEncoder().encode("admin"))
-                        .authorities("ROLE_ADMIN")
-                        .build());
-        return manager;
+//        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
+//        manager.createUser(
+//                User.withUsername("user")
+//                        .password(passwordEncoder().encode("123"))
+//                        .authorities("ROLE_USER")
+//                        .build());
+//        manager.createUser(
+//                User.withUsername("admin")
+//                        .password(passwordEncoder().encode("admin"))
+//                        .authorities("ROLE_ADMIN")
+//                        .build());
+//        return manager;
+        return new UserDetailsServiceImpl();
     }
 
     /**
@@ -61,14 +63,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         //配置认证方式等
-        super.configure(auth);
+        auth.userDetailsService(userDetailsService());
     }
+
+    @Autowired
+    private CustomizeAuthenticationEntryPoint authenticationEntryPoint;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //http相关的配置，包括登入登出、异常处理、会话管理等
         http // 配置登陆页/login并允许访问
             .formLogin().permitAll()
+            //异常处理(权限拒绝、登录失效等)  匿名用户访问无权限资源时的异常处理
+            .and().exceptionHandling().authenticationEntryPoint(authenticationEntryPoint)
             // 登出页
             .and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
             // 其余所有请求全部需要鉴权认证

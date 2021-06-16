@@ -28,6 +28,9 @@ public class CommonResult {
     public static CommonResult success(Object data) {
         return new CommonResult(MsgCode.SUCCESS, "执行成功", data, 0L, 0);
     }
+    public static CommonResult error(String msg) {
+        return new CommonResult(MsgCode.NO_LOGIN, msg,null, 0L, 0);
+    }
 
     /**
      * 普通分页查询

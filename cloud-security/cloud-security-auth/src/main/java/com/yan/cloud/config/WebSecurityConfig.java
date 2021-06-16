@@ -2,6 +2,8 @@ package com.yan.cloud.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -54,5 +56,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean  // 重点是这行，父类并没有将它注册为一个 Bean
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //配置认证方式等
+        super.configure(auth);
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        //http相关的配置，包括登入登出、异常处理、会话管理等
+        http // 配置登陆页/login并允许访问
+            .formLogin().permitAll()
+            // 登出页
+            .and().logout().logoutUrl("/logout").logoutSuccessUrl("/")
+            // 其余所有请求全部需要鉴权认证
+            .and().authorizeRequests().anyRequest().authenticated()
+            // 由于使用的是JWT，我们这里不需要csrf
+            .and().csrf().disable();
     }
 }

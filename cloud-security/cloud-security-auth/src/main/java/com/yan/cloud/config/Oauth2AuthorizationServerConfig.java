@@ -3,7 +3,10 @@ package com.yan.cloud.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -12,11 +15,16 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
 import javax.sql.DataSource;
-import java.time.Duration;
+import java.util.Arrays;
 
 /**
  * 授权服务
@@ -32,6 +40,9 @@ public class Oauth2AuthorizationServerConfig extends
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
     private final DataSource dataSource;
+    private final RedisConnectionFactory redisConnectionFactory;
+    private final InfoTokenEnhancer infoTokenEnhancer;
+    private final UserDetailsService userDetailsService;
 
     /**
      * 配置授权服务器的安全信息，比如 ssl 配置、checktoken
@@ -39,7 +50,9 @@ public class Oauth2AuthorizationServerConfig extends
      */
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        super.configure(security);
+        // 开启 /oauth/check_token 接口
+        security
+                .checkTokenAccess("isAuthenticated()");
     }
 
     /**
@@ -81,20 +94,44 @@ public class Oauth2AuthorizationServerConfig extends
     }
 
     /**
-     * 使用 mysql 存储 token
-     */
-    @Bean
-    public TokenStore tokenStore() {
-        return new JdbcTokenStore(dataSource);
-    }
-
-    /**
      * 配置授权服务器各个端点的非安全功能，如令牌存储，令牌自定义，用户批准和授权类型。
      * 如果需要密码授权模式，需要提供 AuthenticationManager 的 bean。
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+        // token 增强
+        TokenEnhancerChain tec = new TokenEnhancerChain();
+        tec.setTokenEnhancers(Arrays.asList(infoTokenEnhancer, jwtAccessTokenConverter()));
+
         // authenticationManager 在 WebSecurityConfig 中创建的
-        endpoints.authenticationManager(authenticationManager);
+        endpoints.authenticationManager(authenticationManager)
+            .tokenStore(tokenStore())
+            .tokenEnhancer(tec)
+            .userDetailsService(userDetailsService);
     }
+
+    /**
+     * 2. token Store 实现
+     */
+    @Bean
+    public TokenStore tokenStore() {
+        return new RedisTokenStore(redisConnectionFactory);
+    }
+
+    /**
+     * 1. 令牌转换器
+     * @return
+     */
+    @Bean
+    public JwtAccessTokenConverter jwtAccessTokenConverter() {
+        JwtAccessTokenConverter jat = new JwtAccessTokenConverter();
+        // 对称密钥加密
+//        jat.setSigningKey("oauth2");
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(
+                new ClassPathResource("oauth2.jks"), "123456".toCharArray()
+        );
+        jat.setKeyPair(keyStoreKeyFactory.getKeyPair("oauth2"));
+        return jat;
+    }
+
 }
